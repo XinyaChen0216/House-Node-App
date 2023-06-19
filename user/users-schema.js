@@ -5,6 +5,7 @@ const usersSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     email: { type: String, required: true, unique: true },
-    role: { type: String, required: true }
+    role: { type: String, required: true },
+    savedHouses: { type: Array, "default": [] }
 }, { collection: "users" });
 export default usersSchema;
