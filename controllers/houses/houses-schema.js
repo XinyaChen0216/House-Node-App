@@ -12,7 +12,7 @@ const schema = mongoose.Schema({
     year: String,
     status: String,
     image: String,
-    datePosted: Date,
+    date_posted: Date,
     overview: String,
     latitude: String,
     longitude: String,

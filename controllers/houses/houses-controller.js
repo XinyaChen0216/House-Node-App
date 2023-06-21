@@ -1,6 +1,7 @@
 // import posts from "./tuits.js";
 // let tuits = posts;
 import * as housesDao from './houses-dao.js'
+import mongoose from 'mongoose'
 
 const createHouse = async (req, res) => {
     const newHouse = req.body;
@@ -8,41 +9,47 @@ const createHouse = async (req, res) => {
     res.json(insertedHouse);
 }
 const findHouse = async (req, res) => {
-    console.log("hello")
     const houses = await housesDao.findHouses()
-    console.log(houses)
     res.json(houses);
 }
 
+const findRecentHouse = async (req, res) => {
+    // const houses = await housesDao.findHouses()
+    //     .sort({ date_posted: -1 }) // Sort in descending order of datePosted
+    //     .limit(5); // Limit the results to 5 houses
+    // res.json(houses);
+    const houses = await housesDao.findHouses()
+    res.json(houses);
+}
+
+
 const findHouseById = async (req, res) => {
-    const id = req.params.id;
-    const house = await housesDao.findById(id);
+    const id = req.params.hid;
+    const house = await housesDao.findHouseById(id);
     res.json(house);
 }
 
 const updateHouse = async (req, res) => {
-    // const tuitdId = req.params.tid;
-    // const updates = req.body;
-    // const tuitIndex = tuits.findIndex((t) => t._id === tuitdId)
-    // tuits[tuitIndex] = { ...tuits[tuitIndex], ...updates };
-    // res.sendStatus(200);
-    const housedIdToUpdate = req.params.tid;
+    const housedIdToUpdate = req.params.hid;
     const updates = req.body;
     const status = await housesDao
         .updateHouse(housedIdToUpdate, updates);
     res.json(status);
 }
+
 const deleteHouse = async (req, res) => {
-    const housedIdToDelete = req.params.id;
+    const housedIdToDelete = req.params.hid;
     const status = await housesDao.deleteHouse(housedIdToDelete)
     res.json(status);
 }
-const getTop5RecentlyPostedHouses = async(req, res) => {
-    const houses = await housesDao.findHouses()
-        .sort({ datePosted: -1 }) // Sort in descending order of datePosted
-        .limit(5); // Limit the results to 5 houses
-    res.json(houses);
-}
+
+// const getTop5RecentlyPostedHouses = async (req, res) => {
+//     console.log("Hello")
+//     const houses = await housesDao.findHouses()
+//         .sort({ date_posted: -1 }) // Sort in descending order of datePosted
+//         .limit(5); // Limit the results to 5 houses
+//     res.json(houses);
+// }
 
 export default (app) => {
     app.post('/api/houses', createHouse);
@@ -50,5 +57,5 @@ export default (app) => {
     app.get('/api/houses/:hid', findHouseById);
     app.put('/api/houses/:hid', updateHouse);
     app.delete('/api/houses/:hid', deleteHouse);
-    app.get('api/houses/top5recentlypostedhouses', getTop5RecentlyPostedHouses);
+    app.get('/api/houses/recent', findRecentHouse);
 }
