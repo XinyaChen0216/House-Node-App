@@ -45,6 +45,7 @@ const AuthController = (app) => {
             res.sendStatus(403);
         }
     };
+
     const profile = (req, res) => {
         const currentUser = req.session["currentUser"];
         if (!currentUser) {
@@ -52,6 +53,21 @@ const AuthController = (app) => {
             return;
         }
         res.json(currentUser);
+    };
+
+    const viewOtherProfile = async (req, res) => {
+        //req.session["currentUser"] = await usersDao.findUserByUsername(req.body.username);
+        
+        const requestedUser = await usersDao.findUserByUsername(req.params.username);
+
+        if (!requestedUser) {
+            res.sendStatus(404);
+            return;
+        }
+        //console.log(req.session['currentUser']);
+        //console.log(requestedUser);
+
+        res.json(requestedUser);
     };
 
     const logout = (req, res) => {
@@ -69,6 +85,7 @@ const AuthController = (app) => {
     app.post("/api/register", register);
     app.post("/api/login", login);
     app.post("/api/profile", profile);
+    app.get("/api/profile/:username", viewOtherProfile);
     app.post("/api/logout", logout);
     app.put("/api/:uid", update);
 };
