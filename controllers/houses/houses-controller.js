@@ -2,6 +2,7 @@
 // let tuits = posts;
 import * as housesDao from './houses-dao.js'
 import mongoose from 'mongoose'
+const limitSize = 5;
 
 const createHouse = async (req, res) => {
     const newHouse = req.body;
@@ -14,11 +15,9 @@ const findHouse = async (req, res) => {
 }
 
 const findRecentHouse = async (req, res) => {
-    // const houses = await housesDao.findHouses()
-    //     .sort({ date_posted: -1 }) // Sort in descending order of datePosted
-    //     .limit(5); // Limit the results to 5 houses
-    // res.json(houses);
     const houses = await housesDao.findHouses()
+        .sort({ date_posted: -1 }) // Sort in descending order of datePosted
+        .limit(limitSize); // Limit the results to 5 houses
     res.json(houses);
 }
 
@@ -57,5 +56,5 @@ export default (app) => {
     app.get('/api/houses/:hid', findHouseById);
     app.put('/api/houses/:hid', updateHouse);
     app.delete('/api/houses/:hid', deleteHouse);
-    app.get('/api/houses/recent', findRecentHouse);
+    app.get('/api/recenthouses/', findRecentHouse);
 }
