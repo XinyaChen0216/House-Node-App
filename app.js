@@ -27,8 +27,10 @@ UserController(app)
 app.listen(process.env.PORT || 4000);
 AuthController(app);
 
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/house"
+// const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/house-project"
+const CONNECTION_STRING = "mongodb+srv://cs5610-house:83M34lsfOWJJqVfo@house.ve8boma.mongodb.net/?retryWrites=true&w=majority/House"
 
+console.log(CONNECTION_STRING)
 mongoose.connect(CONNECTION_STRING);
 
 

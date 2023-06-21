@@ -65,7 +65,6 @@ const AuthController = (app) => {
         res.json(user)
     };
 
-
     app.post("/api/register", register);
     app.post("/api/login", login);
     app.post("/api/profile", profile);
