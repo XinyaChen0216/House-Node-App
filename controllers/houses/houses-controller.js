@@ -42,14 +42,6 @@ const deleteHouse = async (req, res) => {
     res.json(status);
 }
 
-// const getTop5RecentlyPostedHouses = async (req, res) => {
-//     console.log("Hello")
-//     const houses = await housesDao.findHouses()
-//         .sort({ date_posted: -1 }) // Sort in descending order of datePosted
-//         .limit(5); // Limit the results to 5 houses
-//     res.json(houses);
-// }
-
 export default (app) => {
     app.post('/api/houses', createHouse);
     app.get('/api/houses', findHouse);
