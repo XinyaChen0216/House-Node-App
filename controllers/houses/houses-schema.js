@@ -16,5 +16,6 @@ const schema = mongoose.Schema({
     overview: String,
     latitude: String,
     longitude: String,
+    agent: String,
 }, { collection: 'house' });
 export default schema;
