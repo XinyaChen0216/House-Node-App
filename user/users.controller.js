@@ -44,7 +44,7 @@ const findUserById = async (req, res) => {
     //     .find(u => u._id === userId);
     // res.json(user);
     const id = req.params.id;
-    const user = await usersDao.findUserById(id);
+    const user = await usersDao.findById(id);
     res.json(user);
 }
 
@@ -81,7 +81,5 @@ const updateUser = async (req, res) => {
     req.session["currentUser"] = user;
     res.json(status);
 }
-
-
 
 export default UserController

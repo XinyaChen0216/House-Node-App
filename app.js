@@ -1,7 +1,6 @@
 import express from 'express';
-import HelloController from './controllers/hello-controller.js';
 import UserController from './user/users.controller.js';
-import TuitsController from "./controllers/tuits/tuits-controller.js";
+import housesController from './controllers/houses/houses-controller.js';
 import cors from 'cors'
 import session from "express-session";
 import AuthController from './user/auth-controller.js';
@@ -23,14 +22,15 @@ app.use(cors({
 )
 app.use(express.json());
 const port = process.env.PORT || 4000;
-TuitsController(app);
-HelloController(app)
+housesController(app);
 UserController(app)
 app.listen(process.env.PORT || 4000);
 AuthController(app);
 
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/house"
+// const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/house-project"
+const CONNECTION_STRING = "mongodb+srv://cs5610-house:83M34lsfOWJJqVfo@house.ve8boma.mongodb.net/House"
 
+// console.log(CONNECTION_STRING)
 mongoose.connect(CONNECTION_STRING);
 
 
