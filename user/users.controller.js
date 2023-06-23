@@ -29,11 +29,13 @@ const findUsers = async (req, res) => {
         res.json(users);
     }
 }
+
 const findUserById = async (req, res) => {
     const id = req.params.uid;
     const user = await usersDao.findUserById(id);
     res.json(user);
 }
+
 
 const createUser = async (req, res) => {
     const newUser = await usersDao.createUser(req.body);
