@@ -7,16 +7,25 @@ import * as fs from "fs";
 const createHouse = async (req, res) => {
   const newHouse = req.body;
   const insertedHouse = await housesDao.createHouse(newHouse);
-  res.json(insertedHouse);
+  let currImageString = [];
+  insertedHouse.images.forEach((image) => {
+    const curr = fs.readFileSync(`./public/images/${image}`);
+    currImageString.push(new Buffer.from(curr).toString("base64"));
+  });
+  let currhouse = {
+    ...insertedHouse._doc,
+    imageStrings: currImageString,
+  };
+  res.json(currhouse);
 };
 const findHouse = async (req, res) => {
-  let houses = await housesDao.findHouses();
+  let houses = await housesDao.findHouses().sort({ date_posted: -1 });
   let finalRes = [];
   houses.forEach((house) => {
     let currImageString = [];
     house.images.forEach((image) => {
       const curr = fs.readFileSync(`./public/images/${image}`);
-      currImageString.push(new Buffer.from(curr).toString('base64'));
+      currImageString.push(new Buffer.from(curr).toString("base64"));
     });
     let currhouse = {
       ...house._doc,
