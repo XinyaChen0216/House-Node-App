@@ -7,6 +7,7 @@ const UserController = (app) => {
     app.delete('/api/users/:uid', deleteUser);
     app.put('/api/users/:uid', updateUser);
 }
+
 const findUsers = async (req, res) => {
     const username = req.query.username;
     const password = req.query.password;
@@ -29,6 +30,7 @@ const findUsers = async (req, res) => {
         res.json(users);
     }
 }
+
 const findUserById = async (req, res) => {
     const id = req.params.uid;
     const user = await usersDao.findUserById(id);

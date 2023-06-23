@@ -45,13 +45,16 @@ const AuthController = (app) => {
             res.sendStatus(403);
         }
     };
-    const profile = (req, res) => {
+
+    const getCurrentProfile = async (req, res) => {
         const currentUser = req.session["currentUser"];
-        if (!currentUser) {
-            res.sendStatus(404);
-            return;
-        }
         res.json(currentUser);
+    };
+
+    const profile = async (req, res) => {
+        const userId = req.params.uid;
+        const user = await usersDao.findUserById(userId);
+        res.json(user)
     };
 
     const logout = (req, res) => {
@@ -67,7 +70,8 @@ const AuthController = (app) => {
 
     app.post("/api/register", register);
     app.post("/api/login", login);
-    app.post("/api/profile", profile);
+    app.post("/api/profile", getCurrentProfile);
+    app.post("/api/profile/:uid", profile);
     app.post("/api/logout", logout);
     app.put("/api/:uid", update);
 };
