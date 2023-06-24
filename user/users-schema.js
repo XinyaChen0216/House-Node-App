@@ -11,5 +11,6 @@ const usersSchema = new mongoose.Schema({
     posted_houses: Array, "default": [],
     following: Array,"default": [],
     followers: Number,
+    followers_id: Array, "default": [],
 }, { collection: "users" });
 export default usersSchema;
