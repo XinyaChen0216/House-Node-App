@@ -56,8 +56,6 @@ const AuthController = (app) => {
     };
 
     const viewOtherProfile = async (req, res) => {
-        //req.session["currentUser"] = await usersDao.findUserByUsername(req.body.username);
-        
         const requestedUser = await usersDao.findUserByUsername(req.params.username);
 
         if (!requestedUser) {
@@ -81,11 +79,17 @@ const AuthController = (app) => {
         res.json(user)
     };
 
+    const viewTopAgents = async (req, res) => {
+        const allAgents = await usersDao.findAllAgents(req, res).sort({followers: -1}).limit(3);
+        res.json(allAgents)
+    };
+
     app.post("/api/register", register);
     app.post("/api/login", login);
     app.post("/api/profile", profile);
     app.get("/api/profile/:username", viewOtherProfile);
     app.post("/api/logout", logout);
     app.put("/api/:uid", update);
+    app.get("/api/topagents", viewTopAgents);
 };
 export default AuthController;

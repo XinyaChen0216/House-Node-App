@@ -4,6 +4,8 @@ export const findAllUsers = () =>
     usersModel.find();
 export const findUserById = (id) =>
     usersModel.findById(id);
+export const findAllAgents = () =>
+    usersModel.find({role: 'agent'});
 export const findUserByUsername = (username) =>
     usersModel.findOne({ username });
 export const findUserByCredentials = (username, password) =>
