@@ -10,6 +10,6 @@ const usersSchema = new mongoose.Schema({
     saved_houses: Array, "default": [],
     posted_houses: Array, "default": [],
     following: Array,"default": [],
-    followers: Number
+    followers: Number,
 }, { collection: "users" });
 export default usersSchema;
