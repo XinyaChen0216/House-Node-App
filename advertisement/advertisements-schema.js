@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 const advertisementsSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    house: {type: mongoose.Schema.Types.ObjectId, ref: 'house'},
+    agent: {type: mongoose.Schema.Types.ObjectId, ref: 'users'},
+    first_name: String,
+    last_name:String,
     image: String,
-}, { collection: "advertisement" });
+    phone: String,
+    email: String,
+}, { collection: "advertisement", strict: false });
 export default advertisementsSchema;
