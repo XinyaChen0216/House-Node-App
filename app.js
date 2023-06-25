@@ -1,26 +1,27 @@
-import express from 'express';
-import UserController from './user/users.controller.js';
-import housesController from './controllers/houses/houses-controller.js';
-import advertisementsController from './advertisement/advertisements.controller.js';
-import cors from 'cors'
+import express from "express";
+import UserController from "./user/users.controller.js";
+import housesController from "./controllers/houses/houses-controller.js";
+import advertisementsController from "./advertisement/advertisements.controller.js";
+import cors from "cors";
 import session from "express-session";
-import AuthController from './user/auth-controller.js';
-import mongoose from 'mongoose';
+import AuthController from "./user/auth-controller.js";
+import mongoose from "mongoose";
 
-const app = express()
+const app = express();
 app.use(
-    session({
-        secret: "any string",
-        resave: false,
-        saveUninitialized: true,
-    })
+  session({
+    secret: "any string",
+    resave: false,
+    saveUninitialized: true,
+  })
 );
 
-app.use(cors({
+app.use(
+  cors({
     credentials: true,
     origin: "http://localhost:3000",
-})
-)
+  })
+);
 app.use(express.json());
 const port = process.env.PORT || 4000;
 housesController(app);
@@ -30,9 +31,8 @@ app.listen(process.env.PORT || 4000);
 AuthController(app);
 
 // const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/house-project"
-const CONNECTION_STRING = "mongodb+srv://cs5610-house:83M34lsfOWJJqVfo@house.ve8boma.mongodb.net/House"
+const CONNECTION_STRING =
+  "mongodb+srv://cs5610-house:83M34lsfOWJJqVfo@house.ve8boma.mongodb.net/House";
 
 // console.log(CONNECTION_STRING)
 mongoose.connect(CONNECTION_STRING);
-
-

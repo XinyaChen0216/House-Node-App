@@ -101,7 +101,7 @@ const AuthController = (app) => {
     app.post("/api/login", login);
     app.post("/api/profile", profile);
     app.get("/api/profile/:username", viewOtherProfile);
-    app.get("/api/:id", viewOtherProfileById);
+    app.get("/api/other/profile/:id", viewOtherProfileById);
     app.post("/api/logout", logout);
     app.put("/api/:uid", update);
     app.get("/api/topagents", viewTopAgents);
