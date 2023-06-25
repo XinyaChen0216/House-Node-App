@@ -34,7 +34,6 @@ const findHouse = async (req, res) => {
     };
     finalRes.push(currhouse);
   });
-  console.log(finalRes);
   res.json(finalRes);
 };
 

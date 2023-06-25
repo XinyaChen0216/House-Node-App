@@ -23,11 +23,8 @@ const deleteAdvertisement = async (req, res) => {
 }
 
 const updateAdvertisement = async (req, res) => {
-    // console.log("hello");
     const advertisementIdToUpdate = req.params.aid;
-    console.log(advertisementIdToUpdate);
     const updates = req.body;
-    console.log(updates);
     const status = await advertisementsDao.updateAdvertisement(advertisementIdToUpdate, updates);
     res.json(status);
 }
