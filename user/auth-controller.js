@@ -80,9 +80,15 @@ const AuthController = (app) => {
     };
 
     const viewTopAgents = async (req, res) => {
-        const allAgents = await usersDao.findAllAgents(req, res).sort({followers: -1}).limit(3);
-        res.json(allAgents)
+        //const allAgents = await usersDao.findAllAgents(req, res).sort({followers.length: -1}).limit(3);
+        const allAgents = await usersDao.findAllAgents(req, res);
+        allAgents.sort((a, b) => b.followers.length - a.followers.length); // Sort by followers array length in descending order
+        const topAgents = allAgents.slice(0, 3);
+        res.json(topAgents)
     };
+
+    
+
 
     app.post("/api/register", register);
     app.post("/api/login", login);
@@ -91,5 +97,6 @@ const AuthController = (app) => {
     app.post("/api/logout", logout);
     app.put("/api/:uid", update);
     app.get("/api/topagents", viewTopAgents);
+    
 };
 export default AuthController;
