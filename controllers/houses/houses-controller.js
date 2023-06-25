@@ -19,6 +19,7 @@ const createHouse = async (req, res) => {
   res.json(currhouse);
 };
 const findHouse = async (req, res) => {
+  console.log("Hello")
   let houses = await housesDao.findHouses().sort({ date_posted: -1 });
   let finalRes = [];
   houses.forEach((house) => {

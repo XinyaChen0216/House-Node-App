@@ -1,6 +1,7 @@
 import express from 'express';
 import UserController from './user/users.controller.js';
 import housesController from './controllers/houses/houses-controller.js';
+import advertisementsController from './advertisement/advertisements.controller.js';
 import cors from 'cors'
 import session from "express-session";
 import AuthController from './user/auth-controller.js';
@@ -23,7 +24,8 @@ app.use(cors({
 app.use(express.json());
 const port = process.env.PORT || 4000;
 housesController(app);
-UserController(app)
+UserController(app);
+advertisementsController(app);
 app.listen(process.env.PORT || 4000);
 AuthController(app);
 
