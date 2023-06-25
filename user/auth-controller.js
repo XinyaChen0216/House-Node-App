@@ -68,6 +68,19 @@ const AuthController = (app) => {
         res.json(requestedUser);
     };
 
+    const viewOtherProfileById = async (req, res) => {
+        const requestedUser = await usersDao.findUserById(req.params.id);
+
+        if (!requestedUser) {
+            res.sendStatus(404);
+            return;
+        }
+        //console.log(req.session['currentUser']);
+        //console.log(requestedUser);
+
+        res.json(requestedUser);
+    };
+
     const logout = (req, res) => {
         req.session.destroy();
         res.sendStatus(200);
@@ -84,7 +97,8 @@ const AuthController = (app) => {
         const allAgents = await usersDao.findAllAgents(req, res);
         allAgents.sort((a, b) => b.followers.length - a.followers.length); // Sort by followers array length in descending order
         const topAgents = allAgents.slice(0, 3);
-        res.json(topAgents)
+        console.log(topAgents);
+        res.json(topAgents);
     };
 
     
@@ -94,6 +108,7 @@ const AuthController = (app) => {
     app.post("/api/login", login);
     app.post("/api/profile", profile);
     app.get("/api/profile/:username", viewOtherProfile);
+    app.get("/api/:id", viewOtherProfileById);
     app.post("/api/logout", logout);
     app.put("/api/:uid", update);
     app.get("/api/topagents", viewTopAgents);
