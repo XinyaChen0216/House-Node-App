@@ -97,7 +97,8 @@ const AuthController = (app) => {
         const allAgents = await usersDao.findAllAgents(req, res);
         allAgents.sort((a, b) => b.followers.length - a.followers.length); // Sort by followers array length in descending order
         const topAgents = allAgents.slice(0, 3);
-        res.json(topAgents)
+        console.log(topAgents);
+        res.json(topAgents);
     };
 
     
