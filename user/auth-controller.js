@@ -62,9 +62,16 @@ const AuthController = (app) => {
             res.sendStatus(404);
             return;
         }
-        //console.log(req.session['currentUser']);
-        //console.log(requestedUser);
+        res.json(requestedUser);
+    };
 
+    const viewOtherProfileById = async (req, res) => {
+        const requestedUser = await usersDao.findUserById(req.params.id);
+
+        if (!requestedUser) {
+            res.sendStatus(404);
+            return;
+        }
         res.json(requestedUser);
     };
 
@@ -80,16 +87,24 @@ const AuthController = (app) => {
     };
 
     const viewTopAgents = async (req, res) => {
-        const allAgents = await usersDao.findAllAgents(req, res).sort({followers: -1}).limit(3);
-        res.json(allAgents)
+        //const allAgents = await usersDao.findAllAgents(req, res).sort({followers.length: -1}).limit(3);
+        const allAgents = await usersDao.findAllAgents(req, res);
+        allAgents.sort((a, b) => b.followers.length - a.followers.length); // Sort by followers array length in descending order
+        const topAgents = allAgents.slice(0, 3);
+        res.json(topAgents);
     };
+
+    
+
 
     app.post("/api/register", register);
     app.post("/api/login", login);
     app.post("/api/profile", profile);
     app.get("/api/profile/:username", viewOtherProfile);
+    app.get("/api/other/profile/:id", viewOtherProfileById);
     app.post("/api/logout", logout);
     app.put("/api/:uid", update);
     app.get("/api/topagents", viewTopAgents);
+    
 };
 export default AuthController;
