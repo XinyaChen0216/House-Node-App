@@ -7,6 +7,9 @@ import session from "express-session";
 import AuthController from "./user/auth-controller.js";
 import mongoose from "mongoose";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
 app.use(
   session({
@@ -23,11 +26,20 @@ app.use(
   })
 );
 app.use(express.json());
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 housesController(app);
 UserController(app);
 advertisementsController(app);
 app.listen(process.env.PORT || 4000);
+
+const server = app.listen(PORT, "127.0.0.1", () => {
+  console.log(`✅ Server listening on http://localhost:${PORT}`);
+});
+
+server.on("error", (err) => {
+  console.error("❌ Server failed to start:", err);
+});
+
 AuthController(app);
 
 // const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/house-project"
